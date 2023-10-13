@@ -10,12 +10,15 @@
 		4C5FD3A02AD9791700029F4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FD39F2AD9791700029F4C /* AppDelegate.swift */; };
 		4C5FD3A22AD9791700029F4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FD3A12AD9791700029F4C /* SceneDelegate.swift */; };
 		4C5FD3A42AD9791700029F4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FD3A32AD9791700029F4C /* ViewController.swift */; };
-		4C5FD3A72AD9791700029F4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FD3A52AD9791700029F4C /* Main.storyboard */; };
 		4C5FD3A92AD9791800029F4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FD3A82AD9791800029F4C /* Assets.xcassets */; };
 		4C5FD3AC2AD9791800029F4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FD3AA2AD9791800029F4C /* LaunchScreen.storyboard */; };
 		4C5FD3B72AD9791800029F4C /* usket_RandomUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FD3B62AD9791800029F4C /* usket_RandomUserTests.swift */; };
 		4C5FD3C12AD9791800029F4C /* usket_RandomUserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FD3C02AD9791800029F4C /* usket_RandomUserUITests.swift */; };
 		4C5FD3C32AD9791800029F4C /* usket_RandomUserUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FD3C22AD9791800029F4C /* usket_RandomUserUITestsLaunchTests.swift */; };
+		4C5FD3D42AD97C0800029F4C /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5FD3D32AD97C0800029F4C /* ReactorKit */; };
+		4C5FD3D72AD97C2500029F4C /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5FD3D62AD97C2500029F4C /* Differentiator */; };
+		4C5FD3D92AD97C2500029F4C /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5FD3D82AD97C2500029F4C /* RxDataSources */; };
+		4C5FD3DF2AD97CCA00029F4C /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5FD3DE2AD97CCA00029F4C /* RxAlamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +43,6 @@
 		4C5FD39F2AD9791700029F4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C5FD3A12AD9791700029F4C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4C5FD3A32AD9791700029F4C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4C5FD3A62AD9791700029F4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C5FD3A82AD9791800029F4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C5FD3AB2AD9791800029F4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C5FD3AD2AD9791800029F4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,6 +58,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C5FD3D92AD97C2500029F4C /* RxDataSources in Frameworks */,
+				4C5FD3DF2AD97CCA00029F4C /* RxAlamofire in Frameworks */,
+				4C5FD3D72AD97C2500029F4C /* Differentiator in Frameworks */,
+				4C5FD3D42AD97C0800029F4C /* ReactorKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +134,6 @@
 			children = (
 				4C5FD39F2AD9791700029F4C /* AppDelegate.swift */,
 				4C5FD3A12AD9791700029F4C /* SceneDelegate.swift */,
-				4C5FD3A52AD9791700029F4C /* Main.storyboard */,
 				4C5FD3AA2AD9791800029F4C /* LaunchScreen.storyboard */,
 				4C5FD3A82AD9791800029F4C /* Assets.xcassets */,
 			);
@@ -167,6 +172,12 @@
 			dependencies = (
 			);
 			name = usket.RandomUser;
+			packageProductDependencies = (
+				4C5FD3D32AD97C0800029F4C /* ReactorKit */,
+				4C5FD3D62AD97C2500029F4C /* Differentiator */,
+				4C5FD3D82AD97C2500029F4C /* RxDataSources */,
+				4C5FD3DE2AD97CCA00029F4C /* RxAlamofire */,
+			);
 			productName = usket.RandomUser;
 			productReference = 4C5FD39C2AD9791700029F4C /* usket.RandomUser.app */;
 			productType = "com.apple.product-type.application";
@@ -239,6 +250,11 @@
 				Base,
 			);
 			mainGroup = 4C5FD3932AD9791700029F4C;
+			packageReferences = (
+				4C5FD3D22AD97C0800029F4C /* XCRemoteSwiftPackageReference "ReactorKit" */,
+				4C5FD3D52AD97C2500029F4C /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				4C5FD3DD2AD97CCA00029F4C /* XCRemoteSwiftPackageReference "RxAlamofire" */,
+			);
 			productRefGroup = 4C5FD39D2AD9791700029F4C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,7 +273,6 @@
 			files = (
 				4C5FD3AC2AD9791800029F4C /* LaunchScreen.storyboard in Resources */,
 				4C5FD3A92AD9791800029F4C /* Assets.xcassets in Resources */,
-				4C5FD3A72AD9791700029F4C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,14 +336,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4C5FD3A52AD9791700029F4C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4C5FD3A62AD9791700029F4C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		4C5FD3AA2AD9791800029F4C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -632,6 +639,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4C5FD3D22AD97C0800029F4C /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactorKit/ReactorKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		4C5FD3D52AD97C2500029F4C /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		4C5FD3DD2AD97CCA00029F4C /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire";
+			requirement = {
+				kind = exactVersion;
+				version = 6.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4C5FD3D32AD97C0800029F4C /* ReactorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C5FD3D22AD97C0800029F4C /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
+		};
+		4C5FD3D62AD97C2500029F4C /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C5FD3D52AD97C2500029F4C /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		4C5FD3D82AD97C2500029F4C /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C5FD3D52AD97C2500029F4C /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
+		4C5FD3DE2AD97CCA00029F4C /* RxAlamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C5FD3DD2AD97CCA00029F4C /* XCRemoteSwiftPackageReference "RxAlamofire" */;
+			productName = RxAlamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4C5FD3942AD9791700029F4C /* Project object */;
 }
