@@ -6,12 +6,20 @@
 //
 
 import UIKit
+import SnapKit
+import ReactorKit
+import RxSwift
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController, View {
+    
+    var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
+    
+    func bind(reactor: MainReactor) {
+        
+    }
 }
-
