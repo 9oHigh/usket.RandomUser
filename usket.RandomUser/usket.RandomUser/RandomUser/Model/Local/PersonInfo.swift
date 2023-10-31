@@ -8,8 +8,15 @@
 import Foundation
 
 typealias People = [PersonInfo]
+typealias PeopleDetail = [PersonInfoDetail]
 
-struct PersonInfo: Equatable {
+struct PersonInfo {
+    let imageUrl: String
+    let name: String
+    let age: Int
+}
+
+struct PersonInfoDetail {
     let imageUrl: String
     let name: String
     let age: Int
