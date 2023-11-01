@@ -8,6 +8,7 @@
 import Foundation
 
 enum RandomUserEndPoint {
+    
     case multiple(Int)
 
     var path: String {
@@ -19,5 +20,6 @@ enum RandomUserEndPoint {
 }
 
 extension RandomUserEndPoint {
+    
     static let baseUrl: String  = "https://randomuser.me/api/"
 }
