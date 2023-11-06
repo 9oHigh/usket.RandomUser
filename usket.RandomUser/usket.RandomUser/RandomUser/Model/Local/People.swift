@@ -11,6 +11,7 @@ typealias People = [PersonInfo]
 typealias PeopleDetail = [PersonInfoDetail]
 
 struct PersonInfo {
+    let gender: Bool
     let imageUrl: String
     let name: String
     let age: Int
@@ -25,4 +26,5 @@ struct PersonInfoDetail {
     let email: String
     let dob: String
     let cell: String
+    let gender: Bool
 }
