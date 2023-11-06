@@ -22,7 +22,7 @@ struct Info: Codable {
 
 // MARK: - Result
 struct Result: Codable {
-    let gender: String
+    let gender: Gender
     let name: Name
     let location: Location
     let email: String
@@ -36,13 +36,14 @@ struct Result: Codable {
 
 extension Result {
     func toPersonInfo() -> PersonInfo {
-        return .init(imageUrl: picture.medium, name: name.first + " " + name.last, age: dob.age)
+        return .init(gender: gender.rawValue == "female" ? false : true, imageUrl: picture.medium, name: name.first + " " + name.last, age: dob.age)
     }
     
     func toPersonInfoDetail() -> PersonInfoDetail {
-        return .init(imageUrl: picture.large, name: name.first + " " + name.last, age: dob.age, country: location.country, city: location.city, email: email, dob: dob.date, cell: cell)
+        return .init(imageUrl: picture.large, name: name.first + " " + name.last, age: dob.age, country: location.country, city: location.city, email: email, dob: dob.date, cell: cell, gender: gender.rawValue == "female" ? false : true)
     }
 }
+
 
 // MARK: - Dob
 struct Dob: Codable {
@@ -50,15 +51,22 @@ struct Dob: Codable {
     let age: Int
 }
 
+enum Gender: String, Codable {
+    case female = "female"
+    case male = "male"
+}
+
 // MARK: - ID
 struct ID: Codable {
-    let name, value: String
+    let name: String
+    let value: String?
 }
 
 // MARK: - Location
 struct Location: Codable {
     let street: Street
-    let city, state, country, postcode: String
+    let city, state, country: String
+    let postcode: Postcode
     let coordinates: Coordinates
     let timezone: Timezone
 }
@@ -66,6 +74,34 @@ struct Location: Codable {
 // MARK: - Coordinates
 struct Coordinates: Codable {
     let latitude, longitude: String
+}
+
+enum Postcode: Codable {
+    case integer(Int)
+    case string(String)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let x = try? container.decode(Int.self) {
+            self = .integer(x)
+            return
+        }
+        if let x = try? container.decode(String.self) {
+            self = .string(x)
+            return
+        }
+        throw DecodingError.typeMismatch(Postcode.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Postcode"))
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .integer(let x):
+            try container.encode(x)
+        case .string(let x):
+            try container.encode(x)
+        }
+    }
 }
 
 // MARK: - Street
