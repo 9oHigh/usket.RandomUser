@@ -9,7 +9,7 @@ import Foundation
 import ReactorKit
 
 final class MainReactor: Reactor {
-
+    
     typealias State = MainState
     
     enum Action {
@@ -24,8 +24,9 @@ final class MainReactor: Reactor {
     }
     
     struct MainState {
-        var people: People = People()
         var isLoading: Bool = false
+        var sectionTitles: [String] = ["남성", "여성", "20대", "30대"]
+        var sectionData: [String: People] = [:]
     }
     
     let initialState = State()
@@ -50,11 +51,22 @@ final class MainReactor: Reactor {
             newState.isLoading = isLoading
         case .setPeople(let people):
             newState.isLoading = false
-            newState.people = people
+            newState.sectionData = groupPeopleBySections(people)
         case .toSectionDetail(_):
             return newState
         }
         
         return newState
+    }
+    
+    private func groupPeopleBySections(_ people: People) -> [String: People] {
+        var sectionData: [String: People] = [:]
+        
+        sectionData["남성"] = people.filter { $0.gender }
+        sectionData["여성"] = people.filter { !$0.gender }
+        sectionData["20대"] = people.filter { $0.age > 19 && $0.age < 30 }
+        sectionData["30대"] = people.filter { $0.age > 29 && $0.age < 40 }
+        
+        return sectionData
     }
 }

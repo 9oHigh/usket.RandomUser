@@ -44,7 +44,6 @@ extension Result {
     }
 }
 
-
 // MARK: - Dob
 struct Dob: Codable {
     let date: String
