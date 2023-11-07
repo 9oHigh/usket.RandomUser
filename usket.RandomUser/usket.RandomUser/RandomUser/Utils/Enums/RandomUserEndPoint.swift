@@ -20,6 +20,5 @@ enum RandomUserEndPoint {
 }
 
 extension RandomUserEndPoint {
-    
     static let baseUrl: String  = "https://randomuser.me/api/"
 }
