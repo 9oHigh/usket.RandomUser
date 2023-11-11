@@ -13,13 +13,13 @@ final class RandomUserService {
     
     static let shared = RandomUserService()
     
-    func fetchRandomUsers(count: Int) -> Observable<People> {
+    func fetchRandomUsers(count: Int) -> Observable<PeopleDetail> {
         let baseUrl = RandomUserEndPoint.baseUrl
         let path = RandomUserEndPoint.multiple(count).path
         let url = baseUrl + path
         
         return RxAlamofire.requestJSON(.get, url)
-            .map { (response, json) -> People in
+            .map { (response, json) -> PeopleDetail in
                 
                 guard let data = try? JSONSerialization.data(withJSONObject: json, options: [.prettyPrinted]),
                       let users = try? JSONDecoder().decode(Results.self, from: data)
@@ -27,7 +27,7 @@ final class RandomUserService {
                     throw RxAlamofire.RxAlamofireUnknownError
                 }
                 
-                return users.results.map { $0.toPersonInfo() }
+                return users.results.map { $0.toPersonInfoDetail() }
             }
     }
 }
