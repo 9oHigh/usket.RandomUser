@@ -13,7 +13,7 @@ final class MainCellReactor: Reactor {
     typealias Action = NoAction
     
     struct CellState {
-        var personInfo: PersonInfo
+        var personInfoDetail: PersonInfoDetail
     }
     
     let initialState: CellState

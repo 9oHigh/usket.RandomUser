@@ -29,9 +29,10 @@ final class MainViewController: UIViewController, View, UIScrollViewDelegate {
     func bind(reactor: MainReactor) {
         let dataSource = RxCollectionViewSectionedReloadDataSource<MainSectionModel>(configureCell: { dataSource, collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.identifier, for: indexPath) as? MainCollectionViewCell
-            cell?.reactor = MainCellReactor(initialState: .init(personInfo: item))
+            cell?.reactor = MainCellReactor(initialState: .init(personInfoDetail: item))
             return cell ?? UICollectionViewCell()
         }, configureSupplementaryView: { (dataSource, collectionView, kind, indexPath) in
+            
             guard let header = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: SectionHeaderView.identifier,
@@ -41,21 +42,20 @@ final class MainViewController: UIViewController, View, UIScrollViewDelegate {
                 return UICollectionReusableView()
             }
             
+            if reactor.currentState.isLoading {
+                header.frame.size.height = 0
+                header.frame.size.width = 0
+                return header
+            }
+            
             header.setName(reactor.currentState.sectionTitles[indexPath.section])
+            
+            header.detailButtonAction = { title in
+                reactor.action.onNext(.toSectionDetail(reactor.currentState.sectionData[title] ?? []))
+            }
             
             return header
         })
-        
-        reactor.state
-            .map { state in
-                return state.sectionTitles.map { sectionTitle in
-                    let people = state.sectionData[sectionTitle] ?? []
-                    let items = Array(people.prefix(8))
-                    return MainSectionModel(header: sectionTitle, items: items)
-                }
-            }
-            .bind(to: collectionView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
         
         reactor.state.map { $0.isLoading }
             .subscribe(onNext: { [weak self] isLoading in
@@ -66,6 +66,29 @@ final class MainViewController: UIViewController, View, UIScrollViewDelegate {
                     self?.refreshControl.endRefreshing()
                 }
             })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.pushingViewController }
+            .filter { $0 != nil }
+            .subscribe(onNext: { pushingViewController in
+                guard let pushingViewController = pushingViewController else {
+                    return
+                }
+                self.navigationController?.pushViewController(pushingViewController, animated: true)
+                // 푸시 이후 돌아온다음 다른 액션을 통해 Reduce될 경우, 화면이 푸시되는 이슈 수정
+                reactor.action.onNext(.removePushed)
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state
+            .map { state in
+                return state.sectionTitles.map { sectionTitle in
+                    let people = state.sectionData[sectionTitle] ?? []
+                    let items = Array(people.prefix(8))
+                    return MainSectionModel(header: sectionTitle, items: items)
+                }
+            }
+            .bind(to: collectionView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
     
