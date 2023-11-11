@@ -35,10 +35,6 @@ struct Result: Codable {
 }
 
 extension Result {
-    func toPersonInfo() -> PersonInfo {
-        return .init(gender: gender.rawValue == "female" ? false : true, imageUrl: picture.medium, name: name.first + " " + name.last, age: dob.age)
-    }
-    
     func toPersonInfoDetail() -> PersonInfoDetail {
         return .init(imageUrl: picture.large, name: name.first + " " + name.last, age: dob.age, country: location.country, city: location.city, email: email, dob: dob.date, cell: cell, gender: gender.rawValue == "female" ? false : true)
     }
