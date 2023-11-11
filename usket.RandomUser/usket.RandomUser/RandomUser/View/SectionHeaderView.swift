@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import RxSwift
 
 final class SectionHeaderView: UICollectionReusableView {
     
     static let identifier = "SectionHeaderView"
     private let detailButton = UIButton(type: .custom)
     private let nameLabel = UILabel()
+    var detailButtonAction: ((String) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,6 +30,11 @@ final class SectionHeaderView: UICollectionReusableView {
         nameLabel.text = name
     }
     
+    @objc
+    private func detailButtonTapped() {
+        detailButtonAction?(self.nameLabel.text ?? "알 수 없음")
+    }
+    
     private func setConfig() {
         backgroundColor = .white
         
@@ -40,6 +47,7 @@ final class SectionHeaderView: UICollectionReusableView {
         config.preferredSymbolConfigurationForImage = .init(pointSize: 10)
         config.attributedTitle = AttributedString("더보기", attributes: .init([.font: UIFont.systemFont(ofSize: 12), .foregroundColor: UIColor.black]))
         detailButton.configuration = config
+        detailButton.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
         
         nameLabel.font = .boldSystemFont(ofSize: 20)
         nameLabel.textColor = .black
