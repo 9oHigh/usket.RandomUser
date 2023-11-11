@@ -2,7 +2,8 @@
 
 <details>
   <summary><h2>구상</h2></summary>
-### 첫 화면
+  
+## 첫 화면
 <img src="https://github.com/9oHigh/usket.RandomUser/assets/53691249/68502235-eedd-46e4-beeb-b3b80247bd1e" width="300" height="300">
 
 - 최상위의 타이틀 ( 내비게이션 타이틀 )
@@ -11,7 +12,7 @@
 - 20대 섹션
 - 30대 섹션
 
-### 디테일 화면
+## 디테일 화면
 <img src="https://github.com/9oHigh/usket.RandomUser/assets/53691249/f7e4d031-108c-4631-8587-e08ca004d767" width="300" height="300">
 
 - 각각(여성, 남성...)의 데이터 조회
