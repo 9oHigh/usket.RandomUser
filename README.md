@@ -116,7 +116,7 @@
       
 </details>
 
-<details>
+<details open>
   <summary><h2>정리</h2></summary>
   
 ## Reactors
@@ -197,5 +197,9 @@
 - DetailViewController에서 각 섹션별 데이터를 설정하기 위한 DataSource 사용
     - 아쉽게도 위와 동일한 섹션모델을 네임만 변경해 사용했고 DataSource도 큰 차이 없음 (구조가 동일..)
     - 추후에는 조금더 복잡한 UI와 구조를 가진 형태로 변경해보기
+
+## 영상
+
+![RPReplay_Final1712162595-ezgif com-optimize](https://github.com/9oHigh/usket.RandomUser/assets/53691249/4e600f7c-8971-4d2c-97e1-1e4b521afe34)
  
 </details>
