@@ -62,7 +62,7 @@ final class DetailTableViewCell: UITableViewCell, View {
         
         reactor.state.map { $0.personInfoDetail }
             .subscribe(onNext: { [weak self] info in
-                self?.profileImageView.loadImageFromUrl(url: URL(string: info.imageUrl), placeholder: nil)
+                self?.profileImageView.loadImageFromUrl(url: URL(string: info.imageUrl))
                 self?.nameLabel.text = "이름: " + info.name
                 self?.ageLabel.text = "나이: " + "\(info.age)세"
                 self?.emailLabel.text = "이메일: " + info.email

@@ -35,7 +35,7 @@ final class MainCollectionViewCell: UICollectionViewCell, View {
     func bind(reactor: MainCellReactor) {
         reactor.state.map { $0.personInfoDetail }
             .subscribe(onNext: { [weak self] info in
-                self?.profileImageView.loadImageFromUrl(url: URL(string: info.imageUrl), placeholder: nil)
+                self?.profileImageView.loadImageFromUrl(url: URL(string: info.imageUrl))
                 self?.infoLabel.text = info.name + "\n\(info.age)세"
             })
             .disposed(by: disposeBag)

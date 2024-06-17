@@ -37,8 +37,7 @@ final class MainViewController: UIViewController, View, UIScrollViewDelegate {
                 ofKind: kind,
                 withReuseIdentifier: SectionHeaderView.identifier,
                 for: indexPath
-            ) as? SectionHeaderView
-            else {
+            ) as? SectionHeaderView else {
                 return UICollectionReusableView()
             }
             

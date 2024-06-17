@@ -11,8 +11,7 @@ extension UIImageView {
     
     private static var imageCache = NSCache<NSString, UIImage>()
     
-    func loadImageFromUrl(url: URL?, placeholder: UIImage? = nil) {
-        self.image = placeholder
+    func loadImageFromUrl(url: URL?) {
         
         guard let url = url else {
             return
