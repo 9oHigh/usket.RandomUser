@@ -9,7 +9,7 @@ import Foundation
 
 typealias PeopleDetail = [PersonInfoDetail]
 
-struct PersonInfoDetail: Equatable {
+struct PersonInfoDetail: Equatable, Hashable {
     let imageUrl: String
     let name: String
     let age: Int

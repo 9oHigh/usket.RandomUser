@@ -197,6 +197,122 @@
 - DetailViewController에서 각 섹션별 데이터를 설정하기 위한 DataSource 사용
     - 아쉽게도 위와 동일한 섹션모델을 네임만 변경해 사용했고 DataSource도 큰 차이 없음 (구조가 동일..)
     - 추후에는 조금더 복잡한 UI와 구조를 가진 형태로 변경해보기
+    
+## 테스트
+- 리액터 테스트만 진행
+- 리액터 테스팅
+     - Action이 전달되었을 때, 비즈니스 로직을 수행하여 State가 변경되는지 확인하기
+     - 이를 위해 MainReactor를 변수로 생성하고 setUp에서 초기화 및 데이터 로드 작업 진행
+         ```swift
+        override func setUp() {
+        mainReactor = MainReactor()
+        let expectation = self.expectation(description: "Initial data load")
+
+        // 데이터가 로드된 후에 테스트를 진행할 수 있도록 구독 설정
+        mainReactor?.state
+            .map { $0.sectionData }
+            .distinctUntilChanged()
+            .skip(1) // 첫 번째는 초기 값이므로 skip
+            .subscribe(onNext: { [weak self] sectionData in
+                guard let self = self, sectionData.count > 0 else {
+                    return
+                }
+
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+
+        mainReactor?.action.onNext(.load(100))
+        wait(for: [expectation], timeout: 3.0)
+        }
+        ```
+ (1) 메인 리액터
+ - load: 특정한 카운트 만큼의 데이터를 요청했을 경우, 정상적으로 해당 개수 만큼의 데이터가 들어오고 SectionData가 변경되었는지 확인
+    ```swift
+    func testMainReactorLoad() throws {
+        let expectation = self.expectation(description: "Section Data is changed")
+        var counts = 0
+        mainReactor?.state
+            .map { $0.sectionData }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] sectionData in
+                guard let self = self, sectionData.count > 0 else {
+                    return
+                }
+                
+                expectation.fulfill()
+                
+                var values: Set<PersonInfoDetail> = []
+                for (_, value) in sectionData {
+                    values.formUnion(value)
+                }
+                
+                let totalCount = values.count
+                counts = totalCount
+            })
+            .disposed(by: disposeBag)
+        
+        wait(for: [expectation], timeout: 3.0)
+        XCTAssertEqual(counts, 100)
+    }
+    ```
+ - toSectionDetail: load를 통해 들어온 데이터 중 일부 사람들 데이터를 전달했을 경우, 상태의 pushingViewController가 변경되었는지 즉, nil이 아니게되었는지 확인
+
+    ```swift
+    func testMainReactorToSectionDetail() throws {
+        let expectation = self.expectation(description: "PushingViewController is changed")
+        
+        mainReactor?.action.onNext(.toSectionDetail(mainReactor?.currentState.sectionData["20대"] ?? []))
+        
+        mainReactor?.state
+            .map { $0.pushingViewController }
+            .subscribe(onNext: { value in
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        wait(for: [expectation], timeout: 3.0)
+        XCTAssertNotNil(mainReactor?.currentState.pushingViewController)
+    }
+    ```
+ - removePushed: pushingViewController의 값이 있는지 확인하고, removePushed 액션을 요청했을 때, 정상적으로 pushingViewController가 nil이 되어있는지 확인하기
+     ```swift
+    func testMainReactorRemovePushed() throws {
+        let expectation = self.expectation(description: "PushingViewController is changed")
+        mainReactor?.action.onNext(.removePushed)
+        
+        mainReactor?.state
+            .map { $0.pushingViewController }
+            .subscribe(onNext: { _ in
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        wait(for: [expectation], timeout: 3.0)
+        XCTAssertNil(mainReactor?.currentState.pushingViewController)
+    }
+    ```
+ (2) 디테일 리액터
+ - toggle(IndexPath): 특정한 IndexPath를 전달했을 경우, 상태의 expandedIndexPath가 변경되었는지 확인해보기
+     ```swift
+    func testDetailReactor() throws {
+        let expectation = self.expectation(description: "IndexPath is changed")
+        let detailReactor: DetailReactor = DetailReactor(people: mainReactor!.currentState.sectionData["20대"]!)
+        let indexPath: IndexPath = IndexPath(row: 0, section: 0)
+        detailReactor.action.onNext(.toggle(indexPath))
+        
+        detailReactor.state
+            .map { $0.expandedIndexPath }
+            .distinctUntilChanged()
+            .subscribe(onNext: { _ in
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        wait(for: [expectation], timeout: 3.0)
+        XCTAssertNotNil(detailReactor.currentState.expandedIndexPath)
+    }
+    ```
 
 ## 영상
 
