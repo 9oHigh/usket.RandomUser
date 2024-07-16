@@ -16,6 +16,8 @@ jobs: # workflow는 하나 이상의 jobs로 만들어짐
     # Package.resolved에서 오류가 발생 / 제거하고, resolve
     - name: Delete Package.resolved
       run: rm -f usket.RandomUser/usket.RandomUser/usket.RandomUser/usket.RandomUser.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+    - name: Clean package cache
+      run: rm -rf ~/Library/Caches/org.swift.swiftpm
     - name: Resolve package dependencies
       run: xcodebuild -resolvePackageDependencies -project usket.RandomUser/usket.RandomUser.xcodeproj
     - name: Start xcode build 🛠
