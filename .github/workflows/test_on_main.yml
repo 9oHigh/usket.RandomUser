@@ -11,7 +11,7 @@ jobs: # workflow는 하나 이상의 jobs로 만들어짐
     steps:
     # uses 키워드를 통해 Github Actions에서 기본으로 제공하는 액션을 사용 가능. 
     # repository에 체크아웃
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     # shell 이용해서 하나의 command 수행
     - name: Start xcode build 🛠
       run: |
